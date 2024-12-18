@@ -22,7 +22,20 @@ function Left() {
       </div>
       {/* Search Component */}
       <Serch />
-      <User></User>
+
+      {/*  user comp */}
+      <div className="h-[calc(82vh-45px)] overflow-auto">
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+        <User></User>
+      </div>
     </div>
   );
 }
