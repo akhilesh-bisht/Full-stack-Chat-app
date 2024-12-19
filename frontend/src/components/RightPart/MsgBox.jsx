@@ -6,6 +6,7 @@ function MsgBox() {
       <Msg />
       <Msg />
       <Msg />
+      <Msg />
     </div>
   );
 }
