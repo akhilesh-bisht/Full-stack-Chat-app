@@ -3,7 +3,7 @@ import { FaVideo, FaPhoneAlt, FaSearch } from "react-icons/fa"; // Import icons 
 
 const ChatUser = () => {
   return (
-    <div className="flex items-center justify-between bg-gray-600 text-white h-[65px] px-4 border-b border-gray-500">
+    <div className="flex items-center justify-between bg-gray-600  text-white h-[65px] px-4 border-b border-gray-500">
       {/* User Profile */}
       <div className="flex items-center gap-3">
         {/* Profile Image */}
