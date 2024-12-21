@@ -15,6 +15,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    confirmPassword: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -1,13 +1,15 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 import { ConnectMongoDB } from "./connnection.js";
+import router from "./routes/user.route.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4002;
 const URI = process.env.MONGODB_URI;
-
+app.use(express.json());
+app.use(urlencoded({ extended: true }));
 (async () => {
   try {
     // Connect to MongoDB
@@ -26,3 +28,5 @@ const URI = process.env.MONGODB_URI;
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
+
+app.use("/user", router);
