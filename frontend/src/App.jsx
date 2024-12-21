@@ -7,13 +7,15 @@ import Navbar from "./components/Sidebar/Navbar";
 function App() {
   return (
     <>
-      <div>
-        <Navbar />
-      </div>
-      <div className="flex h-[calc(100vh-45px)] bg-black">
-        <Sidebar />
-        <Left />
-        <Right />
+      <div className="h-screen">
+        <div>
+          <Navbar />
+        </div>
+        <div className="flex h-[calc(100vh-45px)] ">
+          <Sidebar />
+          <Left />
+          <Right />
+        </div>
       </div>
     </>
   );

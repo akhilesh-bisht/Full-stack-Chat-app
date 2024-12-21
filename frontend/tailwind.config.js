@@ -4,5 +4,20 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+
+  plugins: [
+    require("daisyui"), // Include daisyUI plugin
+    function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          /* Hide the scrollbar but allow scrolling */
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+        },
+        ".scrollbar-hide::-webkit-scrollbar": {
+          display: "none" /* Chrome, Safari, Opera */,
+        },
+      });
+    },
+  ],
 };

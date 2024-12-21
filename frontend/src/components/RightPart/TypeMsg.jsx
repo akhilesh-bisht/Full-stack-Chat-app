@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { FaPaperclip, FaSmile, FaMicrophone } from "react-icons/fa";
 import { BsImage, BsFile, BsFillCameraVideoFill } from "react-icons/bs";
+import { IoSend } from "react-icons/io5";
 
 const emojiList = ["😀", "😂", "😍", "😢", "😎"];
 const attachmentOptions = [
@@ -12,6 +13,7 @@ const attachmentOptions = [
 function TypeMsg() {
   const [dropdown, setDropdown] = useState({ emoji: false, attachment: false });
   const [message, setMessage] = useState("");
+
   const containerRef = useRef(null);
 
   // Toggle dropdowns
@@ -44,8 +46,9 @@ function TypeMsg() {
 
   return (
     <div
+      style={{ backgroundColor: "rgb(25 25 25)" }}
       ref={containerRef}
-      className="relative flex items-center bg-gray-600 border border-t-black p-2"
+      className="relative flex items-center h-[8vh] border border-t-black p-2"
     >
       {/* Emoji Picker Icon */}
       <button
@@ -102,13 +105,21 @@ function TypeMsg() {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type your message..."
-        className="w-full px-4 py-2 rounded-l-lg border-none focus:outline-none bg-gray-600"
+        className="w-full px-4 py-2 rounded-xl border-none focus:outline-none "
+        style={{ backgroundColor: "rgb(25 25 25)" }}
       />
 
       {/* Microphone Icon */}
-      <button className="text-white">
-        <FaMicrophone className="text-xl" />
-      </button>
+
+      {message.length > 0 ? (
+        <button className="text-white">
+          <IoSend className="text-xl" />
+        </button>
+      ) : (
+        <button className="text-white">
+          <FaMicrophone className="text-xl" />
+        </button>
+      )}
     </div>
   );
 }

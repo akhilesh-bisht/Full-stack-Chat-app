@@ -3,7 +3,10 @@ import { FaVideo, FaPhoneAlt, FaSearch } from "react-icons/fa"; // Import icons 
 
 const ChatUser = () => {
   return (
-    <div className="flex items-center justify-between bg-gray-600  text-white h-[65px] px-4 border-b border-gray-500">
+    <div
+      className="flex items-center justify-between  text-white h-[8vh] px-4 border-b border-gray-500"
+      style={{ backgroundColor: "rgb(25 25 25)" }}
+    >
       {/* User Profile */}
       <div className="flex items-center gap-3">
         {/* Profile Image */}
@@ -25,11 +28,11 @@ const ChatUser = () => {
 
       <div className="flex items-center space-x-0">
         {/* Video Call Icon */}
-        <button className="hover:bg-gray-500 bg-gray-400 p-2 px-3 rounded-l-md border-r border-gray-200">
+        <button className="hover:bg-gray-700 bg-black p-2 px-3 rounded-l-md border-r border-gray-200">
           <FaVideo className="text-lg" />
         </button>
         {/* Call Icon */}
-        <button className="hover:bg-gray-500 bg-gray-400 p-[9px] px-3 rounded-r-md">
+        <button className="hover:bg-gray-700 bg-black p-[9px] px-3 rounded-r-md">
           <FaPhoneAlt className="text-base" />
         </button>
         {/* Search Icon */}

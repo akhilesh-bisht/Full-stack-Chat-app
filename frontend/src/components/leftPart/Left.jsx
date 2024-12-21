@@ -5,7 +5,10 @@ import { FaEdit, FaCog } from "react-icons/fa"; // Importing icons from React Ic
 
 function Left() {
   return (
-    <div className="border rounded-l-lg border-black w-[25%] bg-gray-600 relative z-0">
+    <div
+      className="border rounded-l-lg border-black w-[25%] relative z-0"
+      style={{ backgroundColor: "rgb(25 25 25)" }}
+    >
       {/* Header Section */}
       <div className="flex text-white pl-2 items-center p-4">
         <h1 className="text-2xl ml-3 font-semibold">Chats</h1>
@@ -24,7 +27,7 @@ function Left() {
       <Serch />
 
       {/*  user comp */}
-      <div className="h-[calc(82vh-45px)] overflow-auto">
+      <div className="h-[calc(82vh-45px)] overflow-auto scrollbar-hide">
         <User></User>
         <User></User>
         <User></User>
