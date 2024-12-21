@@ -1,11 +1,28 @@
 import express from "express";
 import dotenv from "dotenv";
-const app = express();
+import { ConnectMongoDB } from "./connnection.js";
+
 dotenv.config();
 
-const PORT = process.env.PORT || 4002;
+const app = express();
+const PORT = process.env.PORT || 4000;
+const URI = process.env.MONGODB_URI;
 
+(async () => {
+  try {
+    // Connect to MongoDB
+    await ConnectMongoDB(URI);
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start the server:", error.message);
+    process.exit(1);
+  }
+})();
+
+// Routes
 app.get("/", (req, res) => {
-  res.send("heello world");
+  res.send("Hello, world!");
 });
-app.listen(PORT, () => console.log(`port started at ${PORT}`));
