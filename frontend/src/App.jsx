@@ -10,7 +10,7 @@ import Login from "./pages/login";
 function App() {
   return (
     <>
-      <Login></Login>
+      <Login />
       {/* <Signup /> */}
       {/* <div className="h-screen">
         <div>
