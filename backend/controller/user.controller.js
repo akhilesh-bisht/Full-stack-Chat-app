@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import createToken from "../jwt/tokenGenerate.js";
 
 export const signup = async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { fullName, email, password, confirmPassword } = req.body;
   try {
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords do not match" });
@@ -12,7 +12,7 @@ export const signup = async (req, res) => {
     if (user) return res.status(400).json({ error: "User already exists" });
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      name,
+      fullName,
       email,
       password: hashedPassword,
     });
