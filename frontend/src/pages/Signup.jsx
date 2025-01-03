@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const {
@@ -205,12 +206,12 @@ export default function Signup() {
         {/* Sign-In Redirect */}
         <p className="mt-10 text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <a
-            href="#"
+          <Link
+            to="/login"
             className="font-semibold text-indigo-600 hover:text-indigo-500"
           >
             Log in here
-          </a>
+          </Link>
         </p>
       </div>
     </div>
