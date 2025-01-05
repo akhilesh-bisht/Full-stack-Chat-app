@@ -1,27 +1,19 @@
 import React from "react";
-// import Left from "./components/leftPart/Left";
-// import Right from "./components/RightPart/Right";
-// import Sidebar from "./components/Sidebar/Sidebar";
-// import Navbar from "./components/Sidebar/Navbar";
-
+import Home from "./pages/Home";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-      {/* <Login /> */}
-      <Signup />
-      {/* <div className="h-screen">
-        <div>
-          <Navbar />
-        </div>
-        <div className="flex h-[calc(100vh-45px)] ">
-          <Sidebar />
-          <Left />
-          <Right />
-        </div>
-      </div> */}
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </>
   );
 }
