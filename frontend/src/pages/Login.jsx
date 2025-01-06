@@ -38,6 +38,8 @@ export default function Login() {
       .catch((error) => {
         if (error.response) {
           toast.error("Error: " + error.response.data.error);
+          alert("invalid response");
+          setIsLoading(false);
         }
       });
   };
@@ -95,17 +97,11 @@ export default function Login() {
             </label>
             <div className="mt-2 relative">
               <input
+                {...register("password", { required: "Password is required" })}
                 id="password"
-                name="password"
                 type={showPassword ? "text" : "password"}
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
-                })}
-                className="block w-full rounded-md px-3 py-1.5 outline-gray-300 focus:outline-indigo-600"
+                placeholder="Enter your password"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-indigo-600"
               />
               <button
                 type="button"

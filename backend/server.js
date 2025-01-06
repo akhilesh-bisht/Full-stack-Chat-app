@@ -4,6 +4,7 @@ import { ConnectMongoDB } from "./connnection.js";
 import router from "./routes/user.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+const app = express();
 
 dotenv.config();
 app.use(cookieParser());
@@ -11,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 
-const app = express();
 const PORT = process.env.PORT || 4002;
 const URI = process.env.MONGODB_URI;
 (async () => {

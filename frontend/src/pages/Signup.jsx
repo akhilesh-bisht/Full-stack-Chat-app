@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthProvider";
 export default function Signup() {
   const [authUser, setAuthUser] = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -201,7 +202,7 @@ export default function Signup() {
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-white hover:bg-indigo-500"
             >
-              Sign Up
+              {isLoading ? "  Sign in..." : "Sign Up"}
             </button>
           </div>
         </form>
