@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../Context/AuthProvider";
 export default function Signup() {
+  const [authUser, setAuthUser] = useAuth();
   const {
     register,
     handleSubmit,
@@ -34,6 +35,8 @@ export default function Signup() {
 
       // If signup is successful, show a success message
       alert("Signup successful!");
+      localStorage.setItem("userInfo", JSON.stringify(userInfo));
+      setAuthUser(userInfo);
       console.log(userInfo);
     } catch (error) {
       // Handle errors by logging and showing an alert

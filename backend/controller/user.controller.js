@@ -40,6 +40,14 @@ export const login = async (req, res) => {
     }
 
     createToken(user._id, res);
+    res.status(201).json({
+      message: "User logged in successfully",
+      user: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+      },
+    });
   } catch (error) {
     res.status(500).json({ error: "Failed to login" });
   }

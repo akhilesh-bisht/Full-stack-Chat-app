@@ -3,8 +3,11 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import { useAuth } from "../Context/AuthProvider";
 export default function Login() {
+  const [authUser, setAuthUser] = useAuth();
+
   const navigate = useNavigate();
   const {
     register,
@@ -23,25 +26,20 @@ export default function Login() {
       email: data.email,
       password: data.password,
     };
-
-    try {
-      // Send the data to the backend
-      await axios.post("http://localhost:3006/user/login", userInfo);
-
-      // If login is successful, navigate to the home page
-      navigate("/");
-    } catch (error) {
-      setIsLoading(false);
-      if (error.response) {
-        alert(
-          `Error: ${
-            error.response.data.message || "Failed to login. Please try again!"
-          }`
-        );
-      } else {
-        alert("An unexpected error occurred. Please try again!");
-      }
-    }
+    axios
+      .post("http://localhost:3006/user/login", userInfo)
+      .then((response) => {
+        if (response.data) {
+          toast.success("Login successful");
+        }
+        localStorage.setItem("ChatApp", JSON.stringify(response.data));
+        setAuthUser(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error("Error: " + error.response.data.error);
+        }
+      });
   };
 
   return (
@@ -58,11 +56,7 @@ export default function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          method="POST"
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Email Input */}
           <div>
             <label
