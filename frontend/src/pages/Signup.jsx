@@ -32,7 +32,7 @@ export default function Signup() {
 
     try {
       // Send the data to the backend
-      await axios.post("http://localhost:3006/user/signup", userInfo);
+      await axios.post("/api/user/signup", userInfo);
 
       // If signup is successful, show a success message
       alert("Signup successful!");

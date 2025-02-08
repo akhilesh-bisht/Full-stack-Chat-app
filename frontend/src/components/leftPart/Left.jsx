@@ -1,9 +1,14 @@
 import React from "react";
 import Serch from "./Serch";
 import User from "./User";
-import { FaEdit, FaCog } from "react-icons/fa"; // Importing icons from React Icons
+import { FaEdit, FaCog } from "react-icons/fa";
+
+import allUsers from "../../Context/allUsers";
 
 function Left() {
+  const [allUser, loading] = allUsers();
+  console.log(allUser);
+
   return (
     <div
       className="border rounded-l-lg border-black w-[25%] relative z-0"

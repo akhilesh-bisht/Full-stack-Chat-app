@@ -44,7 +44,7 @@ export const login = async (req, res) => {
       message: "User logged in successfully",
       user: {
         _id: user._id,
-        fullname: user.fullname,
+        fullname: user.fullName,
         email: user.email,
       },
     });
@@ -55,9 +55,21 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("jwt-token");
+    res.clearCookie("jwt");
     res.send({ message: "User logged out successfully" });
   } catch (error) {
     res.status(500).json({ error: "Failed to logout" });
+  }
+};
+
+export const allUsers = async (req, res) => {
+  try {
+    const loggedInUser = req.user._id;
+    const FillerUser = await User.find({ _id: { $ne: loggedInUser } }).select(
+      "-password"
+    );
+    res.status(201).json(FillerUser);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get users" });
   }
 };

@@ -1,25 +1,28 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 const secureRoute = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.cookies.jwt; // Corrected token extraction
+
     if (!token) {
       return res.status(401).json({ error: "No token, authorization denied" });
     }
-    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
-    if (!decoded) {
-      return res.status(401).json({ error: "Invalid Token" });
-    }
-    const user = await User.findById(decoded.userId).select("-password"); // current loggedin user
+
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN); // Verify token
+
+    const user = await User.findById(decoded.userId).select("-password"); // Fetch user without password
+
     if (!user) {
       return res.status(401).json({ error: "No user found" });
     }
-    req.user = user;
+
+    req.user = user; // Attach user to request object
     next();
   } catch (error) {
-    console.log("Error in secureRoute: ", error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error in secureRoute:", error);
+    res.status(401).json({ error: "Invalid token or unauthorized" });
   }
 };
+
 export default secureRoute;
