@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 dotenv.config();
+
+// middleware
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
@@ -33,4 +35,4 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.use("user", router);
+app.use("/user", router);

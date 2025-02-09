@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthProvider";
+
 export default function Signup() {
   const [authUser, setAuthUser] = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -13,11 +14,10 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
 
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit = async (data) => {
-    // Check if the passwords match before preparing the userInfo object
     if (data.password !== data.confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -27,31 +27,25 @@ export default function Signup() {
       fullName: data.fullName,
       email: data.email,
       password: data.password,
-      confirmPassword: data.confirmPassword, // This can be omitted if not needed server-side
     };
 
-    try {
-      // Send the data to the backend
-      await axios.post("/api/user/signup", userInfo);
+    setIsLoading(true); // Start loading
 
-      // If signup is successful, show a success message
+    try {
+      await axios.post("/user/signup", userInfo);
       alert("Signup successful!");
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
       setAuthUser(userInfo);
-      console.log(userInfo);
     } catch (error) {
-      // Handle errors by logging and showing an alert
       if (error.response) {
         console.error("Error response:", error.response.data);
-        alert(
-          `Error: ${
-            error.response.data.message || "Failed to signup. Please try again!"
-          }`
-        );
+        alert(`Error: ${error.response.data.message || "Signup failed!"}`);
       } else {
         console.error("Error:", error.message);
-        alert("An unexpected error occurred. Please try again!");
+        alert("An unexpected error occurred!");
       }
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
 
@@ -66,7 +60,7 @@ export default function Signup() {
           src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
           className="mx-auto h-10 w-auto"
         />
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-2xl font-bold text-gray-900">
           Sign up for an account
         </h2>
       </div>
@@ -75,16 +69,12 @@ export default function Signup() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Name Field */}
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Full Name
             </label>
             <div className="mt-2">
               <input
                 {...register("fullName", { required: "Full name is required" })}
-                id="name"
                 type="text"
                 placeholder="Enter your full name"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-indigo-600"
@@ -97,16 +87,12 @@ export default function Signup() {
 
           {/* Email Field */}
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Email Address
             </label>
             <div className="mt-2">
               <input
                 {...register("email", { required: "Email is required" })}
-                id="email"
                 type="email"
                 placeholder="Enter your email"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-indigo-600"
@@ -119,16 +105,12 @@ export default function Signup() {
 
           {/* Password Field */}
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Password
             </label>
             <div className="mt-2 relative">
               <input
                 {...register("password", { required: "Password is required" })}
-                id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-indigo-600"
@@ -148,10 +130,7 @@ export default function Signup() {
 
           {/* Confirm Password Field */}
           <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-900"
-            >
+            <label className="block text-sm font-medium text-gray-900">
               Confirm Password
             </label>
             <div className="mt-2 relative">
@@ -159,7 +138,6 @@ export default function Signup() {
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                 })}
-                id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm your password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 outline outline-1 outline-gray-300 placeholder-gray-400 focus:outline-indigo-600"
@@ -200,9 +178,12 @@ export default function Signup() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-white hover:bg-indigo-500"
+              disabled={isLoading}
+              className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-white hover:bg-indigo-500 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              {isLoading ? "  Sign in..." : "Sign Up"}
+              {isLoading ? "Signing Up..." : "Sign Up"}
             </button>
           </div>
         </form>

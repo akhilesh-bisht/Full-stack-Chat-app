@@ -27,7 +27,7 @@ export default function Login() {
       password: data.password,
     };
     axios
-      .post("/api/user/login", userInfo, { withCredentials: true })
+      .post("user/login", userInfo, { withCredentials: true })
       .then((response) => {
         if (response.data) {
           toast.success("Login successful");
