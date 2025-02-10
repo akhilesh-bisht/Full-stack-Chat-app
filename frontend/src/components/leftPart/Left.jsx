@@ -7,7 +7,6 @@ import allUsers from "../../Context/allUsers";
 
 function Left() {
   const [allUser, loading] = allUsers();
-  console.log(allUser);
 
   return (
     <div
@@ -33,16 +32,9 @@ function Left() {
 
       {/*  user comp */}
       <div className="h-[calc(82vh-45px)] overflow-auto scrollbar-hide">
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
-        <User></User>
+        {allUser.map((user) => (
+          <User key={user._id} user={user} />
+        ))}
       </div>
     </div>
   );

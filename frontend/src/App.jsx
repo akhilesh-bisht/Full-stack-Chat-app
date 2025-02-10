@@ -1,14 +1,17 @@
 import React from "react";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useAuth } from "./Context/AuthProvider";
 import { Navigate } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
 function App() {
   const [authUser, setAuthUser] = useAuth();
   return (
     <>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"

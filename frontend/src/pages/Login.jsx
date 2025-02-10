@@ -27,12 +27,12 @@ export default function Login() {
       password: data.password,
     };
     axios
-      .post("user/login", userInfo, { withCredentials: true })
+      .post("/api/user/login", userInfo, { withCredentials: true })
       .then((response) => {
         if (response.data) {
           toast.success("Login successful");
         }
-        localStorage.setItem("ChatApp", JSON.stringify(response.data));
+        localStorage.setItem("userInfo", JSON.stringify(response.data));
         setAuthUser(response.data);
       })
       .catch((error) => {

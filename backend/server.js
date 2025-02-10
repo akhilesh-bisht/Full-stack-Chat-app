@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 4002;
+const PORT = process.env.PORT || 3001;
 const URI = process.env.MONGODB_URI;
 (async () => {
   try {
@@ -35,4 +35,4 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.use("/user", router);
+app.use("/api/user", router);
