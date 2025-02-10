@@ -1,10 +1,11 @@
 import express, { urlencoded } from "express";
 import dotenv from "dotenv";
 import { ConnectMongoDB } from "./connnection.js";
-import router from "./routes/user.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
+import userRoute from "./routes/user.route.js";
+import messageRoute from "./routes/msg.route.js";
 
 dotenv.config();
 
@@ -35,4 +36,5 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-app.use("/api/user", router);
+app.use("/api/user", userRoute);
+app.use("/api/message", messageRoute);
