@@ -1,7 +1,10 @@
 import React from "react";
-import { FaVideo, FaPhoneAlt, FaSearch } from "react-icons/fa"; // Import icons from React Icons
+import { FaVideo, FaPhoneAlt, FaSearch } from "react-icons/fa";
+import useConvo from "../../zustand/UserConvo";
 
 const ChatUser = () => {
+  const { Selectedtalk } = useConvo();
+
   return (
     <div
       className="flex items-center justify-between  text-white h-[8vh] px-4 border-b border-gray-500"
@@ -18,7 +21,7 @@ const ChatUser = () => {
         {/* User Name */}
         <div className="mt-3">
           <span className="text-lg font-medium text-center mt-3">
-            User Name
+            {Selectedtalk?.fullName}
           </span>
           <h1 className="text-xs ml-1 ">online</h1>
         </div>

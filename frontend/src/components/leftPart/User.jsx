@@ -1,18 +1,18 @@
 import React from "react";
-import useConvo from "../../zustand/UseConvo";
+import useConvo from "../../zustand/UserConvo";
 
 function User({ user }) {
   const { Selectedtalk, setSelectedtalk } = useConvo();
   const isSelected = Selectedtalk?._id === user._id;
   return (
     <>
-      <div
-        className={`hover:bg-slate-600 duration-300 ${
-          isSelected ? "bg-slate-700" : ""
-        }`}
-        onClick={() => setSelectedConversation(user)}
-      >
-        <div className="flex items-center space-x-4 px-4 py-2 hover:bg-gray-700 mt-2 rounded-lg mx-2 cursor-pointer">
+      <div>
+        <div
+          className={`hover:bg-slate-600 duration-300 flex items-center space-x-4 px-4 py-2  mt-2 rounded-lg mx-2 cursor-pointer ${
+            isSelected ? "bg-slate-700" : ""
+          }`}
+          onClick={() => setSelectedtalk(user)}
+        >
           <img
             src="https://via.placeholder.com/50"
             alt="User Profile"
