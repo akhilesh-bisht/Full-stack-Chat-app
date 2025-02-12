@@ -7,6 +7,7 @@ import { useRef, useEffect } from "react";
 function MsgBox() {
   const { loading, messages } = useGetMessage();
   const lastMsgRef = useRef();
+
   useEffect(() => {
     setTimeout(() => {
       if (lastMsgRef.current) {

@@ -3,9 +3,9 @@ import dotenv from "dotenv";
 import { ConnectMongoDB } from "./connnection.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-const app = express();
 import userRoute from "./routes/user.route.js";
 import messageRoute from "./routes/msg.route.js";
+import { app, server } from "./soket.io/socket.js";
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ const URI = process.env.MONGODB_URI;
     // Connect to MongoDB
     await ConnectMongoDB(URI);
     console.log("Connected to MongoDB");
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {

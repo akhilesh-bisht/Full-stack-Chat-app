@@ -21,7 +21,7 @@ const ChatUser = () => {
         {/* User Name */}
         <div className="mt-3">
           <span className="text-lg font-medium text-center mt-3">
-            {Selectedtalk?.fullName}
+            {Selectedtalk.fullName}
           </span>
           <h1 className="text-xs ml-1 ">online</h1>
         </div>

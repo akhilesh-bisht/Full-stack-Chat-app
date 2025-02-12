@@ -22,6 +22,7 @@ const useGetMessage = () => {
     };
     getMessages();
   }, [Selectedtalk, setMessages]);
+
   return { loading, messages };
 };
 
