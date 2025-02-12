@@ -16,7 +16,7 @@ function Right() {
         <NoChatSelected />
       ) : (
         <div
-          className="border border-black 2px w-[71%] "
+          className="border border-black 2px w-full "
           style={{ backgroundColor: "rgb(25 25 25)" }}
         >
           <ChatUser />

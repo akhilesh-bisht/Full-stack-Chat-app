@@ -30,7 +30,7 @@ function Sidebar() {
       {/* Sidebar */}
       <div
         className={`${
-          isExpanded ? "w-[10%]" : "w-[4%]"
+          isExpanded ? "w-[10%]" : "w-[10%]"
         } text-white flex flex-col bg-black items-center border border-black h-[calc(100vh-45px)] transition-all duration-300 z-10`}
       >
         {/* Toggle Button */}

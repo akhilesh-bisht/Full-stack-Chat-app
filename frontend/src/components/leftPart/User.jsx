@@ -8,7 +8,7 @@ function User({ user }) {
   const { socket, onlineUsers } = useSocketContext();
   const isOnline = onlineUsers.includes(user._id);
   const isSelected = Selectedtalk?._id === user._id;
-    return (
+  return (
     <>
       <div>
         <div
@@ -17,7 +17,7 @@ function User({ user }) {
           }`}
           onClick={() => setSelectedtalk(user)}
         >
-          <div className="flex space-x-4 px-8 py-3 hover:bg-slate-700 duration-300 cursor-pointer">
+          <div className="flex space-x-4 px-3 md:px-4 py-3 duration-300 cursor-pointer">
             <div className={`avatar ${isOnline ? "online" : ""}`}>
               <div className="w-12 rounded-full">
                 <img
@@ -28,9 +28,7 @@ function User({ user }) {
             </div>
             <div>
               <h1 className=" font-bold">{user.fullName}</h1>
-              <p className="text-gray-400 text-sm">
-              {user.email}
-              </p>
+              <p className="text-gray-400  text-xs md:text-xs">{user.email}</p>
             </div>
           </div>
         </div>
