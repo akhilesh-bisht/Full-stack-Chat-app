@@ -4,44 +4,36 @@ import { BsImage, BsFile, BsFillCameraVideoFill } from "react-icons/bs";
 import { IoSend } from "react-icons/io5";
 import useSendMessage from "../../Context/useSendMsg";
 
-const emojiList = ["😀", "😂", "😍", "😢", "😎"];
-const attachmentOptions = [
-  { label: "Image", icon: BsImage },
-  { label: "File", icon: BsFile },
-  { label: "Video", icon: BsFillCameraVideoFill },
+// Extended emoji list
+const emojiList = [
+  "😀", "😂", "😍", "😢", "😎", "👍", "❤️", "🙌", 
+  "🎉", "🔥", "😊", "🤔", "👋", "✨", "🎸"
 ];
 
 function TypeMsg() {
   const [dropdown, setDropdown] = useState({ emoji: false, attachment: false });
   const [message, setMessage] = useState("");
   const { sendMessages, loading } = useSendMessage();
-
   const containerRef = useRef(null);
-
-  //  handle send messge
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (message.trim() === "") return;
     await sendMessages(message);
     setMessage("");
+    setDropdown({ emoji: false, attachment: false }); // Close dropdowns after sending
   };
 
-  // Toggle dropdowns
-  const toggleDropdown = useCallback((type) => {
-    setDropdown((prev) => ({
-      emoji: type === "emoji" ? !prev.emoji : false,
-      attachment: type === "attachment" ? !prev.attachment : false,
-    }));
+  const handleEmojiClick = useCallback((emoji) => {
+    setMessage((prev) => prev + emoji);
+    // Don't close emoji picker after selection
+    setDropdown(prev => ({ ...prev, attachment: false }));
   }, []);
 
-  // Handle outside clicks to close dropdowns
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target)
-      ) {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
         setDropdown({ emoji: false, attachment: false });
       }
     };
@@ -49,36 +41,35 @@ function TypeMsg() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Handle emoji click
-  const handleEmojiClick = useCallback((emoji) => {
-    setMessage((prev) => prev + emoji);
-    setDropdown({ emoji: false, attachment: false });
-  }, []);
-
   return (
     <form onSubmit={handleSendMessage}>
       <div
-        style={{ backgroundColor: "rgb(25 25 25)" }}
         ref={containerRef}
         className="relative flex items-center h-[8vh] border border-t-black p-2"
+        style={{ backgroundColor: "rgb(25 25 25)" }}
       >
-        {/* Emoji Picker Icon */}
+        {/* Emoji Button */}
         <button
-          onClick={() => toggleDropdown("emoji")}
-          className="text-white mx-2"
+          type="button" // Prevent form submission
+          onClick={() => setDropdown(prev => ({ 
+            ...prev, 
+            emoji: !prev.emoji 
+          }))}
+          className="text-white mx-2 hover:text-gray-300 transition-colors"
         >
-          <FaSmile className="text-base" />
+          <FaSmile className="text-xl" />
         </button>
 
         {/* Emoji Picker Dropdown */}
         {dropdown.emoji && (
-          <div className="absolute mt-10 bg-white p-2 rounded shadow-lg">
-            <div className="grid grid-cols-5 gap-4">
+          <div className="absolute bottom-16 left-0 bg-gray-800 p-3 rounded-lg shadow-xl z-50">
+            <div className="grid grid-cols-5 gap-2 max-h-[200px] overflow-y-auto">
               {emojiList.map((emoji) => (
                 <button
                   key={emoji}
+                  type="button"
                   onClick={() => handleEmojiClick(emoji)}
-                  className="hover:bg-gray-200 p-1 rounded"
+                  className="hover:bg-gray-700 p-2 rounded-lg transition-colors text-xl"
                 >
                   {emoji}
                 </button>
@@ -87,52 +78,28 @@ function TypeMsg() {
           </div>
         )}
 
-        {/* Attachment Icon */}
-        <button
-          onClick={() => toggleDropdown("attachment")}
-          className="text-white"
-        >
-          <FaPaperclip className="text-base" />
-        </button>
-
-        {/* Attachment Options Dropdown */}
-        {dropdown.attachment && (
-          <div className="absolute mt-10 bg-white p-3 rounded shadow-lg">
-            <div className="flex flex-col gap-3">
-              {attachmentOptions.map(({ label, icon: Icon }) => (
-                <button
-                  key={label}
-                  className="flex items-center gap-2 hover:bg-gray-200 p-2 rounded"
-                >
-                  <Icon className="text-xl" /> {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Input for Message */}
-
+        {/* Message Input */}
         <input
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
-          className="w-full px-4 py-2 rounded-xl border-none focus:outline-none "
+          className="w-full px-4 py-2 rounded-xl border-none focus:outline-none text-white"
           style={{ backgroundColor: "rgb(25 25 25)" }}
         />
 
-        {/* Microphone Icon */}
-
-        {message.length > 0 ? (
-          <button className="text-white">
+        {/* Send/Mic Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="text-white mx-2 hover:text-gray-300 transition-colors"
+        >
+          {message.trim().length > 0 ? (
             <IoSend className="text-xl" />
-          </button>
-        ) : (
-          <button className="text-white">
+          ) : (
             <FaMicrophone className="text-xl" />
-          </button>
-        )}
+          )}
+        </button>
       </div>
     </form>
   );

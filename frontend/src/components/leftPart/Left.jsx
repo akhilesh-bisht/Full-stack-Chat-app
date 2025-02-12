@@ -48,20 +48,19 @@ function Left() {
           )
         ) : (
           <div className="flex justify-center  mt-44 items-center">
-            
-          <motion.div
-          animate={{
-            x: [ 50, 20, -20, 0], // Moves left and right
-            rotate: [0, 360], // Rotates while moving
-          }}
-          transition={{
-            duration: 2, // Total animation time
-            repeat: Infinity, // Loops forever
-            ease: "easeInOut",
-          }}
-          >
-          <FaSpinner className="text-gray-400 animate-spin" size={30} />
-        </motion.div>
+            <motion.div
+              animate={{
+                x: [50, 20, -20, 0], // Moves left and right
+                rotate: [0, 360], // Rotates while moving
+              }}
+              transition={{
+                duration: 2, // Total animation time
+                repeat: Infinity, // Loops forever
+                ease: "easeInOut",
+              }}
+            >
+              <FaSpinner className="text-gray-400 animate-spin" size={30} />
+            </motion.div>
           </div>
         )}
       </div>
@@ -70,4 +69,3 @@ function Left() {
 }
 
 export default Left;
-
