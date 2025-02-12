@@ -1,10 +1,14 @@
 import React from "react";
 import useConvo from "../../zustand/UserConvo";
+import { useSocketContext } from "../../Context/socket";
+import useGetMessage from "../../Context/usegetMsg";
 
 function User({ user }) {
   const { Selectedtalk, setSelectedtalk } = useConvo();
+  const { socket, onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(user._id);
   const isSelected = Selectedtalk?._id === user._id;
-  return (
+    return (
     <>
       <div>
         <div
@@ -13,14 +17,21 @@ function User({ user }) {
           }`}
           onClick={() => setSelectedtalk(user)}
         >
-          <img
-            src="https://via.placeholder.com/50"
-            alt="User Profile"
-            className="w-12 h-12 rounded-full"
-          />
-          <div className="text-white ">
-            <h2 className="text-lg font-semibold">{user.fullName}</h2>
-            <p className="text-sm text-gray-400">{user.email}</p>
+          <div className="flex space-x-4 px-8 py-3 hover:bg-slate-700 duration-300 cursor-pointer">
+            <div className={`avatar ${isOnline ? "online" : ""}`}>
+              <div className="w-12 rounded-full">
+                <img
+                  src={`https://ui-avatars.com/api/?name=${user.fullName}&background=random`}
+                  alt="profile"
+                />
+              </div>
+            </div>
+            <div>
+              <h1 className=" font-bold">{user.fullName}</h1>
+              <p className="text-gray-400 text-sm">
+              {user.email}
+              </p>
+            </div>
           </div>
         </div>
       </div>

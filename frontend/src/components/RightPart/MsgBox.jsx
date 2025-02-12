@@ -3,9 +3,11 @@ import Msg from "./Msg";
 import useGetMessage from "../../Context/usegetMsg";
 import Loading from "../Loding";
 import { useRef, useEffect } from "react";
+import useGetSocketMessage from "../../Context/useGetSocketMessage";
 
 function MsgBox() {
   const { loading, messages } = useGetMessage();
+  useGetSocketMessage(); // listing incoming msg
   const lastMsgRef = useRef();
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function MsgBox() {
 
       {!loading && messages.length === 0 && (
         <div>
-          <p className="text-center mt-[20%]">
+          <p className="text-center mt-[15%] fixed left-[60%]">
             Say! Hello to start the conversation
           </p>
         </div>

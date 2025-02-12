@@ -1,9 +1,17 @@
 import React from "react";
 import { FaVideo, FaPhoneAlt, FaSearch } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import useConvo from "../../zustand/UserConvo";
+import { useSocketContext } from "../../Context/socket";
 
 const ChatUser = () => {
   const { Selectedtalk } = useConvo();
+  const { onlineUsers } = useSocketContext();
+  const isOnline = onlineUsers.includes(Selectedtalk._id);
+
+  const getOnlineUsersStatus = (userId) => {
+    return onlineUsers.includes(userId) ? "Online" : "";
+  };
 
   return (
     <div
@@ -12,18 +20,22 @@ const ChatUser = () => {
     >
       {/* User Profile */}
       <div className="flex items-center gap-3">
-        {/* Profile Image */}
-        <img
-          src="https://via.placeholder.com/40"
-          alt="User Profile"
-          className="w-10 h-10 rounded-full"
-        />
+        <div className={`avatar w-10  ${isOnline ? "online" : ""}`}>
+          <img
+            className="rounded-full"
+            src={`https://ui-avatars.com/api/?name=${Selectedtalk.fullName}&background=random`}
+            alt="profile"
+          />
+        </div>
+        {/* <FaUserCircle className="mt-2" size={30} /> */}
         {/* User Name */}
-        <div className="mt-3">
+        <div className="">
           <span className="text-lg font-medium text-center mt-3">
             {Selectedtalk.fullName}
           </span>
-          <h1 className="text-xs ml-1 ">online</h1>
+          <div className="text-xs">
+            {getOnlineUsersStatus(Selectedtalk._id)}
+          </div>
         </div>
       </div>
 
