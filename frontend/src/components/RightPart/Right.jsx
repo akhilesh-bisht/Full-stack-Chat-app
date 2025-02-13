@@ -5,15 +5,22 @@ import TypeMsg from "./TypeMsg";
 import useConvo from "../../zustand/UserConvo";
 import { CiMenuFries } from "react-icons/ci";
 import { useAuth } from "../../Context/AuthProvider";
-function Right() {
+function Right({ onMenuClick }) {
   const { Selectedtalk, setSelectedtalk } = useConvo();
   useEffect(() => {
     return setSelectedtalk(null);
   }, [setSelectedtalk]);
   return (
     <>
+      <label
+        htmlFor="my-drawer-2"
+        className="btn btn-ghost drawer-button lg:hidden absolute left-5 md:hidden"
+        onClick={onMenuClick}
+      >
+        <CiMenuFries className="text-white text-xl" />
+      </label>
       {!Selectedtalk ? (
-        <NoChatSelected />
+        <NoChatSelected onMenuClick={onMenuClick} />
       ) : (
         <div
           className="border border-black 2px w-full "
@@ -42,12 +49,6 @@ const NoChatSelected = () => {
   return (
     <>
       <div className="relative mx-auto">
-        <label
-          htmlFor="my-drawer-2"
-          className="btn btn-ghost drawer-button lg:hidden absolute left-5"
-        >
-          <CiMenuFries className="text-white text-xl" />
-        </label>
         <div className="flex h-[90vh] items-center justify-center">
           <h1 className="text-center">
             Welcome{" "}

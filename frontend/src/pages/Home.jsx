@@ -14,17 +14,23 @@ function Home() {
   return (
     <div className="h-screen">
       <div>
-        <Navbar onMenuClick={toggleDrawer} />
+        <Navbar />
       </div>
       <div className="flex h-[calc(100vh-45px)]">
         {/* Sidebar for desktop */}
-
-        {/* Drawer for mobile */}
+{/* 
+lassName={`fixed  left-0 top-[45px] h-full w-64 bg-white shadow-lg transform transition-transform ${
+             */}
 
         {/* Main content */}
-        <div className="flex flex-1 flex-col md:flex-row">
-          <Left />
-          <Right />
+        <div className="flex flex-1 md:flex-row">
+          <div className={`relative sm:left-[-100px] md:left-0    ${isDrawerOpen ? "" : ""}`}
+            
+         
+          >
+            <Left />
+          </div>
+          <Right onMenuClick={toggleDrawer} />
         </div>
       </div>
     </div>

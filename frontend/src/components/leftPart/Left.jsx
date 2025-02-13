@@ -17,7 +17,7 @@ function Left() {
 
   return (
     <div
-      className="border rounded-l-lg border-black  w-full md:w-[35%] lg:w-[25%] relative z-0"
+      className="border rounded-l-lg border-black h-full  w-full md:w-full lg:w-full relative z-0"
       style={{ backgroundColor: "rgb(25 25 25)" }}
     >
       {/* Header Section */}
