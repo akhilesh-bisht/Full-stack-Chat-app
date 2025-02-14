@@ -56,8 +56,8 @@ const NoChatSelected = () => {
               {authUser.user.fullname}
             </span>
             <br />
-            No chat selected, please start conversation by selecting anyone to
-            your contacts
+            welcome ,No chat selected, please start conversation by selecting
+            anyone to your contacts
           </h1>
         </div>
       </div>
