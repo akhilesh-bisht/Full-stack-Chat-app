@@ -59,7 +59,7 @@ export default function Signup() {
   const confirmPassword = watch("confirmPassword", "");
 
   return (
-    <div className="flex flex-1 flex-col w-[30%] mx-auto rounded-lg justify-center px-6 py-4 mt-10 lg:px-8 bg-white">
+    <div className="flex flex-1 flex-col w-[90%] md:w-[30%] mx-auto rounded-lg justify-center px-6 py-4 mt-10 lg:px-8 bg-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           alt="Your Company"
